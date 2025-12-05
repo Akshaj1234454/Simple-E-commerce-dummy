@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Checkout{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static '/static/css/checkOut.css' %}">
+<div class="checkout-container">
+    <h2 class="checkout-title">Checkout</h2>
+    <div class="checkout-products">
+        <h3>Products in Cart</h3>
+        <ul class="checkout-list">
+            {% for item in items %}
+            <li class="checkout-item">
+                <span class="checkout-product-name">{{ item.product.name }}</span>
+                <span class="checkout-product-qty">x{{ item.quantity }}</span>
+            </li>
+            {% empty %}
+            <li class="checkout-item">Your cart is empty.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <form method="post" class="checkout-form">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.address.label_tag }}
+            {{ form.address }}
+        </div>
+        <div class="form-group">
+            {{ form.pincode.label_tag }}
+            {{ form.pinCode }}
+        </div>
+        <div class="form-group">
+            {{ form.mobilenumber.label_tag }}
+            {{ form.mobileNumber }}
+        </div>
+        <button type="submit" class="checkout-btn">Proceed to Payment</button>
+    </form>
+</div>
+{% endblock %}

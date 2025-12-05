@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Payment Failed{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static '/static/css/payment_status.css' %}">
+<div class="payment-status-wrapper failure">
+  <div class="payment-card">
+    <div class="icon-circle">
+      <span class="icon">&#10005;</span>
+    </div>
+    <h2>Payment Failed</h2>
+    <p>The payment could not be completed or was cancelled.</p>
+    {% if error %}
+      <div class="payment-error" style="color:#dc2626;margin-top:1rem;font-weight:500;">{{ error }}</div>
+    {% endif %}
+    <button class="home-btn" onclick="window.location.href='/'">Okay</button>
+  </div>
+</div>
+{% endblock %}

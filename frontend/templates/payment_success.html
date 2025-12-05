@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Payment Success{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static '/static/css/payment_status.css' %}">
+<div class="payment-status-wrapper success">
+  <div class="payment-card">
+    <div class="icon-circle">
+      <span class="icon">&#10003;</span>
+    </div>
+    <h2>Payment Successful</h2>
+    <p>Your payment was processed successfully.</p>
+    <button class="home-btn" onclick="window.location.href='/'">Okay</button>
+  </div>
+</div>
+{% endblock %}

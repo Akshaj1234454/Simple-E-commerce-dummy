@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}Listing{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static '/static/css/listing.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="listing-container">
+    <h2 class="listing-title">Product Listings</h2>
+    <form method="get" class="search-bar">
+        <button type="button" class="filters-btn" onclick="document.getElementById('filtersDialog').showModal();">Filters</button>
+        <input type="text" name="q" placeholder="Search products..." value="{{ request.GET.q }}" class="search-input" />
+        <button type="submit" class="search-btn">Search</button>
+    </form>
+    <dialog id="filtersDialog" class="filters-dialog">
+        <form method="get" class="filters-form">
+            <h3>Filters</h3>
+            <input type="hidden" name="q" value="{{ request.GET.q }}" />
+            <div class="range-group">
+                <label class="range-label">Range:</label>
+                <input type="number" name="from" min="0" max = "100000" class="range-input" placeholder="From" value="{{ request.GET.from }}" />
+                <span class="range-separator">–</span>
+                <input type="number" name="to" min="0" class="range-input" placeholder="To" value="{{ request.GET.to }}" />
+            </div>
+            
+            <div class="category-group">
+                <label class="category-label" for="category-select">Category:</label>
+                <select name="category" id="category-select" class="category-select">
+                    <option value="">All</option>
+                    {% for cat in category %}
+                        <option value="{{ cat }}" {% if request.GET.category == cat %}selected{% endif %}>{{ cat }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="rating-group">
+                <input type="checkbox" name="rating" id="rating3plus" value="1" {% if request.GET.rating %}checked{% endif %} />
+                <label for="rating3plus" class="rating-label">
+                    <span class="star-icon">&#9733;</span> Show only products rated <strong>3 stars & above</strong>
+                </label>
+            </div>
+
+            <div class="filters-actions">
+                <button type="submit" class="apply-filters-btn">Apply</button>
+                <a href="?" class="clear-filters-btn">Clear</a>
+                <button value="close" class="close-dialog-btn" onclick="this.closest('dialog').close(); return false;">Close</button>
+            </div>
+        </form>
+    </dialog>
+    <div class="card-grid">
+        {% for item in products %}
+        <div class="card">
+            <a class="card-link" href="{% url 'productDetail' item.id %}">
+                <div class="card-img">
+                    {% if item.image_url %}
+                        <img src="{{ item.image_url }}" alt="{{ item.name|default:item.title }}" />
+                    {% else %}
+                        <img src="https://via.placeholder.com/400x300?text=No+Image" alt="No image available" />
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <div>
+                        <h3 class="card-title">{{ item.name }}</h3>
+                        <p class="card-rating">Rating: {{ item.starRating|default:"0" }}/5</p>
+                        <p class="card-desc">{{ item.description }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="card-price">₹{{ item.price }}</span>
+                        <span class="card-cta">View</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+        <p>No items found.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

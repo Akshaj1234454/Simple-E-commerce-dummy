@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Your Cart{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static '/static/css/cartView.css' %}">
+<div class="cart-container">
+    <div class="cart-header">
+        <h2 class="cart-title">Your Cart</h2>
+        <span class="cart-subtotal">Sub Total: ₹{{ subTotal }}</span>
+    </div>
+    {% if items %}
+    <div class="cart-checkout-wrapper">
+        <form action="{% url 'checkOut' %}" method="get">
+            <button type="submit" class="checkout-btn">Checkout</button>
+        </form>
+    </div>
+    {% endif %}
+    <div class="cart-items">
+        {% for item in items %}
+        <div class="cart-item-card">
+            <img src="{{ item.product.image_url }}" alt="{{ item.product.name }}" class="cart-item-image" />
+            <div class="cart-item-info">
+                <h3 class="cart-item-name">{{ item.product.name }}</h3>
+                <p class="cart-item-desc">{{ item.product.description }}</p>
+                <span class="cart-item-price">₹{{ item.product.price }}</span>
+                <span class="cart-item-qty">Quantity: {{ item.quantity }}</span>
+                <form action="{% url 'removeFromCart' item.id %}" method="POST" class="remove-form">
+                    {% csrf_token %}
+                    <button type="submit" class="remove-btn">Remove</button>
+                </form>
+            </div>
+        </div>
+        {% empty %}
+        <p class="empty-cart">Your cart is empty.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

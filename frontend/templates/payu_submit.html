@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Redirecting to PayU{% endblock %}
+{% block content %}
+<div style="max-width:480px;margin:4rem auto;text-align:center;font-family:system-ui;">
+  <h2 style="margin-bottom:1rem;">Redirecting to Payment...</h2>
+  <p>If you're not redirected automatically, click the button below.</p>
+  <form id="payuForm" action="{{ payu_url }}" method="post">
+    {% for k,v in payu_data.items %}
+      <input type="hidden" name="{{ k }}" value="{{ v|escape }}" />
+    {% endfor %}
+    <button type="submit" class="home-btn" style="margin-top:1.2rem;">Continue</button>
+  </form>
+</div>
+<script>document.getElementById('payuForm').submit();</script>
+{% endblock %}

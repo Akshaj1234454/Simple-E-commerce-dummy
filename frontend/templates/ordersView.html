@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}My Orders{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static '/static/css/ordersView.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="orders-container">
+    <h2 class="orders-title">My Orders</h2>
+    <div class="orders-list">
+        {% for order in ord %}
+        <div class="order-card">
+            <div class="order-header">
+                <span class="order-date">{{ order.orderDate|date:"M d, Y H:i" }}</span>
+            </div>
+            <div class="order-details">
+                <p><strong>Amount:</strong> ₹{{ order.payAmount }}</p>
+                <p><strong>Status:</strong> {{ order.status|default:"Pending" }}</p>
+                <p><strong>Address:</strong> {{ order.address }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p>No orders found.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

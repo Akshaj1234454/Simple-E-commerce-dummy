@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Write a Review{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static '/static/css/writeReview.css' %}">
+<div class="review-form-container">
+    {% if error %}
+        <div class="form-error">
+            {% for field, errors in error.items %}
+                {% for err in errors %}
+                    <div>{{ err }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <form method="post" class="review-form">
+        {% csrf_token %}
+        <h2 class="review-form-title">Write a Review</h2>
+        <div class="form-group">
+            {{ form.comment.label_tag }}
+            {{ form.comment }}
+        </div>
+        <div class="form-group">
+                {{ form.rating.label_tag }}
+                <div class="star-rating">
+                    {# Reversed DOM order (5->1) so with row-reverse flex the visual order is 1..5 #}
+                    <input type="radio" id="id_rating_4" name="rating" value="5" required><label for="id_rating_4">&#9733;</label>
+                    <input type="radio" id="id_rating_3" name="rating" value="4" required><label for="id_rating_3">&#9733;</label>
+                    <input type="radio" id="id_rating_2" name="rating" value="3" required><label for="id_rating_2">&#9733;</label>
+                    <input type="radio" id="id_rating_1" name="rating" value="2" required><label for="id_rating_1">&#9733;</label>
+                    <input type="radio" id="id_rating_0" name="rating" value="1" required><label for="id_rating_0">&#9733;</label>
+                </div>
+        </div>
+        <button type="submit" class="submit-review-btn">Submit Review</button>
+    </form>
+</div>
+{% endblock %}

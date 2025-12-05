@@ -1,0 +1,87 @@
+.review-form-container {
+    max-width: 500px;
+    margin: 2.5rem auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    padding: 2.5rem 2rem;
+}
+
+.review-form-title {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #2d6cdf;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 1.7rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.7rem;
+    color: #222;
+    font-weight: 500;
+}
+
+.comment-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid #dbe6f6;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #f7f8fa;
+    transition: border-color 0.2s;
+    resize: vertical;
+}
+.comment-input:focus {
+    border-color: #2d6cdf;
+    outline: none;
+}
+
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    gap: 0.3rem;
+}
+ .star-rating input[type="radio"] {
+     position: absolute;
+     opacity: 0;
+     width: 1px;
+     height: 1px;
+     margin: 0;
+     padding: 0;
+     pointer-events: auto;
+ }
+
+.star-rating label {
+    font-size: 2rem;
+    color: #dbe6f6;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.star-rating input[type="radio"]:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #f5b301;
+}
+
+.submit-review-btn {
+    width: 100%;
+    padding: 0.9rem;
+    background: #2d6cdf;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 1rem;
+}
+.submit-review-btn:hover {
+    background: #1a4fa0;
+}

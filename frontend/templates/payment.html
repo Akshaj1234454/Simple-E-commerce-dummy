@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Make Payment{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static '/static/css/payment_status.css' %}">
+<div class="payment-status-wrapper">
+  <div class="payment-card">
+  <h2>Proceed to Pay</h2>
+  <p>Amount: <strong>₹{{ amount }}</strong></p>
+  <form action="{% url 'payment' %}" method="post">
+      {% csrf_token %}
+      <button class="home-btn" type="submit">Pay Now</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

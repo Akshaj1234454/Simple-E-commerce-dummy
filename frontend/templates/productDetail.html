@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ product.name }} Details{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static '/static/css/productDetail.css' %}">
+<div class="product-detail-container">
+    <div class="product-main">
+        <img src="{{ product.image_url }}" alt="{{ product.name }}" class="product-image" />
+        <div class="product-info">
+            <h2 class="product-title">{{ product.name }}</h2>
+            <p class="product-rating">Rating: {{ product.starRating|default:"0" }}/5</p>
+            
+            <p class="product-desc">{{ product.description }}</p>
+            <span class="product-price">₹{{ product.price }}</span>
+            <div class="product-actions">
+                <form action="{% url 'addToCart' %}" method="POST" class="cart-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    <button type="submit" class="cart-btn">Add to Cart</button>
+                    <div class="quantity-group">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity" min="1" value="1" class="quantity-input" />
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="reviews-section">
+        <div class="product-summary">
+            {{ product.summary }}
+        </div>
+        <h3>Reviews</h3>
+        <div class="reviews-list">
+            {% for review in reviews %}
+            <div class="review-card">
+                <strong>{{ review.user.username }}</strong>
+                <span class="review-rating">{{ review.rating }}/5</span>
+                <p class="review-text">{{ review.comment }}</p>
+            </div>
+            {% empty %}
+            <p>No reviews yet.</p>
+            {% endfor %}
+        </div>
+        <button class="write-review-btn" onclick="window.location.href='{% url 'writeReview' product.id %}'">Write a Review</button>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <link rel="stylesheet" href="/static/css/signup.css">
+    <style>
+        .otp-container { max-width: 400px; margin: 60px auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); padding: 2.5rem 2rem; }
+        .otp-container h2 { text-align: center; color: #2d6cdf; font-weight: 700; margin-bottom: 2rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; color: #222; font-weight: 500; }
+        .form-group input { width: 100%; padding: 0.7rem 1rem; border: 1px solid #dbe6f6; border-radius: 6px; font-size: 1rem; background: #f7f8fa; transition: border-color 0.2s; }
+        .form-group input:focus { border-color: #2d6cdf; outline: none; }
+        .signup-btn { width: 100%; padding: 0.9rem; background: #2d6cdf; color: #fff; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; margin-top: 1rem; }
+        .signup-btn:hover { background: #1a4fa0; }
+        .error-msg { color: #d32f2f; text-align: center; margin-bottom: 1rem; font-weight: 500; }
+    </style>
+</head>
+<body>
+    <div class="otp-container">
+        <form method="post">
+            {% csrf_token %}
+            <h2>Verify OTP</h2>
+            {% if error %}
+                <div class="error-msg">{{ error }}</div>
+            {% endif %}
+            <div class="form-group">
+                <label for="otp">Enter OTP</label>
+                <input type="text" id="otp" name="otp" maxlength="6" required autocomplete="off">
+            </div>
+            <button type="submit" class="signup-btn">Verify</button>
+        </form>
+    </div>
+</body>
+</html>
